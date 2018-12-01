@@ -3,7 +3,7 @@
 #include <math.h>					//biblio mathematique ajouter -lm a la compilation
 #include <time.h>
 #include <stdbool.h>
-//#include "enregistrement.h"
+#include "enregistrement.h"
 
 /*utilisation de gdb pour debbuger:
 compiler avec l'option -g: gcc -g code.c -lm
@@ -16,8 +16,10 @@ nouvelle session: screen -S nom_delasession
 se rattacher a une session: screen -r ...
 se detacher " : screen -d
 liste des session: screen ls
+*/
 
-
+/*
+sudo su pour etre en root
 */
 
 //intervalle d ouveture en temps: 8h30 a 17h30 -> 540min
@@ -28,25 +30,21 @@ typedef struct _Client {int date_arrivee;
 						struct _Client* suivant;	} Client;
 
 
-typedef struct {Client* pTete;} ListeCient;
+typedef struct {Client* pTete;} ListeClient;
 
 /* justifictation: 
 On utilise une liste chainee afin de pouvoir ajouter des clients sans limite de taille
 */
 
 
-void insertion(Client* pNouveau_client, ListeCient* pMa_liste);
+void insertion(Client* pNouveau_client, ListeClient* pMa_liste);
+void affichage(ListeClient* pMa_liste);
 double aleatoire(double a, double b);
-void calcule(int min, int max, ListeCient* pMa_liste); //calcules les caracteistiques des clients de la liste
+void calcule(int min, int max, ListeClient* pMa_liste); //calcules les caracteistiques des clients de la liste
 
 
 //--------------------------------------------------------------------
 
-
-double aleatoire(double a, double b){	//retourne un nombre aleatoire entre a et b
-	//return (rand() /RAND_MAX *(b-a) + a);
-	return  (double)(rand()%1000) /1000 *(b-a) +a;
-}
 
 
 int main(){
@@ -56,7 +54,7 @@ int main(){
 
 	srand(time(NULL)); // initialisation de rand pour avoir des valeur alatoire
 
-	ListeCient ma_liste;
+	ListeClient ma_liste;
 	ma_liste.pTete = NULL;
 	
 	temps += (int) (-log(1-aleatoire(0,1))/lambda); //variable aleatoire exponentielle
@@ -71,18 +69,26 @@ int main(){
 		temps += (int) (-log(1-aleatoire(0,1))/lambda); //variable aleatoire exponentielle
 
 		insertion(pNouveau_client,&ma_liste);
-		printf("%d|",pNouveau_client->date_arrivee);
+		//printf("%d|",pNouveau_client->date_arrivee);
 	};
 
-	printf("\n");
 	calcule(min, max, &ma_liste);
-	
+	//affichage(&ma_liste);
+
+	enregistreListeJournaliere(&ma_liste);
 
 	return 0;
 }
 
 
-void insertion(Client* pNouveau_client, ListeCient* pMa_liste){
+double aleatoire(double a, double b){	
+//retourne un nombre aleatoire entre a et b
+	//return (rand() /RAND_MAX *(b-a) + a);
+	return  (double)(rand()%1000) /1000 *(b-a) +a;
+}
+
+
+void insertion(Client* pNouveau_client, ListeClient* pMa_liste){
 //insertion en fin de liste
 
 	Client* ptr_courant = pMa_liste->pTete;
@@ -111,9 +117,21 @@ void insertion(Client* pNouveau_client, ListeCient* pMa_liste){
 }
 
 
+void affichage(ListeClient* pMa_liste){
+//parcours de la liste pour afficher les temps:
+
+	Client *ptr_courant = pMa_liste->pTete;
+	
+	while(ptr_courant->suivant != NULL){
+		printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);
+		ptr_courant = ptr_courant->suivant;	
+	}
+	printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);	
+}
 
 
-void calcule(int min, int max, ListeCient* pMa_liste){
+void calcule(int min, int max, ListeClient* pMa_liste){
+//calcules les caracteistiques des clients de la liste
 
 	Client* ptr_courant = pMa_liste->pTete;
 	Client* ptr_precedent;
@@ -141,5 +159,19 @@ void calcule(int min, int max, ListeCient* pMa_liste){
 	//pour tester le dernier element:
 	ptr_courant->duree_attente = ptr_precedent->date_fin - ptr_courant->date_arrivee;
 	ptr_courant->date_fin = ptr_precedent->date_fin + aleatoire(min, max);
+}
+
+
+void enregistreListeJournaliere(ListeClient* pMa_liste){
+
+	Client *ptr_courant = pMa_liste->pTete;
+	
+	while(ptr_courant->suivant != NULL){
+		printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);
+		ptr_courant = ptr_courant->suivant;	
+	}
+	printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);	
+
+
 
 }
