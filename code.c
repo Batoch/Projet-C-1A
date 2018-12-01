@@ -18,10 +18,6 @@ se detacher " : screen -d
 liste des session: screen ls
 */
 
-/*
-sudo su pour etre en root
-*/
-
 //intervalle d ouveture en temps: 8h30 a 17h30 -> 540min
 
 typedef struct _Client {int date_arrivee;
