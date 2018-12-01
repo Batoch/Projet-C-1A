@@ -174,7 +174,7 @@ void enregistreListeJournaliere(ListeClient* pMa_liste){
 	while(ptr_courant->suivant != NULL){
 
 		date_debut_service = ptr_courant->date_arrivee + ptr_courant->duree_attente;
-		fprintf(fic, "%d %d %d %d\n", 	ptr_courant->date_arrivee,
+		fprintf(fic, "%d,%d,%d,%d\n", 	ptr_courant->date_arrivee,
 										ptr_courant->duree_attente, 
 										date_debut_service,
 										ptr_courant->date_fin);
@@ -184,7 +184,7 @@ void enregistreListeJournaliere(ListeClient* pMa_liste){
 	}
 
 	date_debut_service = ptr_courant->date_arrivee+ptr_courant->duree_attente;
-	fprintf(fic, "%d %d %d %d\n", 	ptr_courant->date_arrivee,
+	fprintf(fic, "%d,%d,%d,%d\n", 	ptr_courant->date_arrivee,
 									ptr_courant->duree_attente, 
 									date_debut_service,
 									ptr_courant->date_fin);
