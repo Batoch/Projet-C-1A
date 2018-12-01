@@ -37,11 +37,11 @@ On utilise une liste chainee afin de pouvoir ajouter des clients sans limite de 
 */
 
 
+double aleatoire(double a, double b);
 void insertion(Client* pNouveau_client, ListeClient* pMa_liste);
 void affichage(ListeClient* pMa_liste);
-double aleatoire(double a, double b);
 void calcule(int min, int max, ListeClient* pMa_liste); //calcules les caracteistiques des clients de la liste
-
+void enregistreListeJournaliere(ListeClient* pMa_liste);
 
 //--------------------------------------------------------------------
 
@@ -69,14 +69,12 @@ int main(){
 		temps += (int) (-log(1-aleatoire(0,1))/lambda); //variable aleatoire exponentielle
 
 		insertion(pNouveau_client,&ma_liste);
-		//printf("%d|",pNouveau_client->date_arrivee);
 	};
 
 	calcule(min, max, &ma_liste);
-	//affichage(&ma_liste);
-
+	affichage(&ma_liste);
 	enregistreListeJournaliere(&ma_liste);
-
+	printf("done.\n");
 	return 0;
 }
 
@@ -149,6 +147,9 @@ void calcule(int min, int max, ListeClient* pMa_liste){
 	//execute le bloc et le repete si la condition est vrai
 
 		ptr_courant->duree_attente = ptr_precedent->date_fin - ptr_courant->date_arrivee;
+		if(ptr_courant->duree_attente<0)
+			ptr_courant->duree_attente = 0;
+				
 		ptr_courant->date_fin = ptr_precedent->date_fin + aleatoire(min, max);
 
 		//passage au maillot suivant:
@@ -165,13 +166,29 @@ void calcule(int min, int max, ListeClient* pMa_liste){
 void enregistreListeJournaliere(ListeClient* pMa_liste){
 
 	Client *ptr_courant = pMa_liste->pTete;
-	
+	int date_debut_service;
+
+	FILE *fic;
+	fic = fopen("liste_journaliere_de_clients.txt", "w");
+
 	while(ptr_courant->suivant != NULL){
-		printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);
-		ptr_courant = ptr_courant->suivant;	
+
+		date_debut_service = ptr_courant->date_arrivee + ptr_courant->duree_attente;
+		fprintf(fic, "%d %d %d %d\n", 	ptr_courant->date_arrivee,
+										ptr_courant->duree_attente, 
+										date_debut_service,
+										ptr_courant->date_fin);
+		
+
+		ptr_courant = ptr_courant->suivant;
 	}
-	printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);	
 
+	date_debut_service = ptr_courant->date_arrivee+ptr_courant->duree_attente;
+	fprintf(fic, "%d %d %d %d\n", 	ptr_courant->date_arrivee,
+									ptr_courant->duree_attente, 
+									date_debut_service,
+									ptr_courant->date_fin);
 
+	fclose(fic);
 
 }
