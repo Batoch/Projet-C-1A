@@ -54,12 +54,19 @@ void enregilecturestrer(){
 
     debitmoyen = i/510;
 
-    tauxclientnonservis = 
+/*definition d'un client non servi:
+deuxieme client dont la date de fin de service excede 540
+*/
+    int j =0;
+    while( tabdateFinService[j] > 540)
+        j++;
+    nbClientsServis = (i-(j+1));
+    tauxclientnonservis = nbClientsServis/i;
 
 
     int somme = 0;
-    for(int j, j<i, j++){
-        somme += tabdateArrive[i] - tabdateFinService[i];
+    for(int j=0; j<i; j++){
+        somme += tabdateArrive[j] - tabdateFinService[j];
     }
     tempsreponsemoy = somme/i;
 
@@ -69,6 +76,6 @@ void enregilecturestrer(){
 
 	fclose(fic);
 
-    int metriques[5] = {taillemoyfileattente,taillemaxfile,debitmoyen, tauxclientnonservis, tempsreponsemoy};
+    float metriques[5] = {taillemoyfileattente,taillemaxfile,debitmoyen, tauxclientnonservis, tempsreponsemoy};
     return(metriques);
 }
