@@ -10,7 +10,7 @@ void enregilecturestrer(){
     
 
 
-	fic = fopen("fichier.txt", "w");
+	fic = fopen("fichier.txt", "r");
 
 
     while(fic != NULL)
