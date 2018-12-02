@@ -18,6 +18,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
     int dureAttente;
     int dateDebutService;
     int dateFinService;
+printf("0");
 
 	fic = fopen("fichier.txt", "r");
 
