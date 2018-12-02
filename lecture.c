@@ -19,17 +19,17 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
     int dateDebutService;
     int dateFinService;
 
-	fic = fopen("fichier.txt", "r");
+	fic = fopen("liste_journaliere_de_clients.txt", "r");
 
-    while(fic != NULL)          //calcul du nombre de clients dans le fichier
+    while(fscanf(fic, "%d,%d,%d,%d\n", &dateArrive, &dureAttente, &dateDebutService, &dateFinService) != -1)          //calcul du nombre de clients dans le fichier
     {
-        fseek(fic, +1, SEEK_CUR);
+        
+        //fseek(fic, i, SEEK_SET);
+        //printf("%d\t", fscanf(fic, "%d,%d,%d,%d\n", &dateArrive, &dureAttente, &dateDebutService, &dateFinService));
         i++;
     }
 
-    //fseek(fic, 0, SEEK_SET);
-	fclose(fic);
-    fic = fopen("fichier.txt", "r");
+    fseek(fic, 0, SEEK_SET);
 
     int tabdateArrive[i];
     int tabdureAttente[i];
@@ -38,7 +38,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
 
     i = 0; //nombre de client dans la journee
 
-    while(fic != NULL)
+    while(fscanf(fic, "%d,%d,%d,%d\n", &dateArrive, &dureAttente, &dateDebutService, &dateFinService) != -1) 
     {
         fscanf(fic, "%d,%d,%d,%d", &dateArrive, &dureAttente, &dateDebutService, &dateFinService);
         fseek(fic, +1, SEEK_CUR);
