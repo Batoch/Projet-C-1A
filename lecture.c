@@ -10,7 +10,6 @@ float debitmoyen;
 Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et retourne les metriques 
 	FILE *fic;
     float taillemoyfileattente;
-    int taillemaxfile;
     float debitmoyen;            //nombre moyen de client par minute
     int tauxclientnonservis;
     float tempsreponsemoy;
@@ -66,7 +65,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
         => donc au total 2xi evenements
     */
     int tab_taille_file[2*i];
-    int tab_taille_file[0] = 0; //a louverture la file est vide
+    tab_taille_file[0] = 0; //a louverture la file est vide
     int temps_effectif_file[2*i];
 
     //On fabriquer un tableau avec tous les evenements dans l ordre historique avec leur date d apparition
@@ -105,7 +104,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
                 compteur_fin_service +=1;
             }
 
-        }else
+        }else{
         //ie if la liste des arrivees a ete parcourue en entier -> que des sorties now
         //par construction du code tabdateArrive est percourue entierement avant tabdateFinService
 
@@ -115,14 +114,14 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
 
                 compteur_minute += tabdateFinService[compteur_fin_service];
                 compteur_fin_service +=1;
-            }
+            
         }
     }
     
     
     //calcule de taillemoyfileattente et taillemaxfile:
 
-    taillemaxfile = 0;
+    int taillemaxfile = 0;
     taillemoyfileattente = 0; //baricentre des tailles de files pondere par leurs temps effectifs
 
     for(int j=0; j<2*i; j++){
