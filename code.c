@@ -10,17 +10,6 @@ puis run le fichier cree a.out et si erreur taper la commande: gdb ./a.out
 puis: r -> run et bt -> backtrace
 */
 
-/*utilisation de screen:
-nouvelle session: screen -S nom_delasession
-se rattacher a une session: screen -r ...
-se detacher " : screen -d
-liste des session: screen ls
-*/
-
-/*
-sudo su pour etre en root
-*/
-
 //intervalle d ouveture en temps: 8h30 a 17h30 -> 540min
 
 typedef struct _Client {int date_arrivee;
