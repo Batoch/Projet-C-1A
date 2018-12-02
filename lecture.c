@@ -151,7 +151,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
     for(int j=0; j<i; j++){
         somme += tabdateArrive[j] - tabdateFinService[j];
     }
-    tempsreponsemoy =((float) somme) /((float)) i);
+    tempsreponsemoy =((float) somme) /((float) i);
 
 
 
