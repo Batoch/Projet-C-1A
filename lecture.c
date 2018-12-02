@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int min(int a, int b){
+    //donne le minimum entre deux entier
+    if(a<b | a=b)
+        return a;
+    return b;
+}
+
 void enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et retourne les metriques 
 	FILE *fic;
     float taillemoyfileattente;
@@ -29,7 +36,7 @@ void enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et
     int tabdateDebutService[i];
     int tabdateFinService[i];
 
-    i = 0;
+    i = 0; //nombre de client dans la journee
 
     while(fic != NULL)
     {
@@ -47,16 +54,93 @@ void enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et
     }
 
 
-//calcul des metriques
-    taillemoyfileattente = 
+    //calcul des metriques
+
+    //----------------------------------------------
+    /*Repertorier des tailles max de file par intervalles entre deux fin de service:
+
+    Le but est de creer un tableau qui donne l historique des tailles de files et leur temps d activite.
+    On va ponderer les tailles de liste par le temps ou elles sont effectives
+    Deux evenements peuvent podifier la taille de la liste:
+        - arrivee d un client -> taille de file +1
+        - fin de service d un client -> taille de file -1
+        => donc au total 2xi evenements
+    */
+    int tab_taille_file[2*i];
+    int tab_taille_file[0] = 0; //a louverture la file est vide
+    int temps_effectif_file[2*i];
+
+    //On fabriquer un tableau avec tous les evenements dans l ordre historique avec leur date d apparition
+    // comtribution et un autre avec leur contribution a la taille de la file courante:
+
+    int compteur_minute;
+    int compteur_arrivee = 0;
+    int compteur_fin_service = 0;
+    for(int j=0; j<2*i; j++){
+
+        //on distigue different cas suivant qu une liste est vide ou non:
+
+        if( compteur_arrivee <i & compteur_fin_service<i){
+        //deux listes non vides
+
+            if(tabdateArrive[compteur_arrivee] <= tabdateFinService[compteur_fin_service]){
+            //ie if l evenement courant est une arrivee de client
+
+                tab_taille_file[j+1] =tab_taille_file[j] +1; //taille de la prochaine file
+                
+                temps_effectif_file[j] = tabdateArrive[compteur_arrivee] - compteur_minute;
+                //deduction du temps effectifs de la file a l etat precedent
+                
+                //maj des compteurs:
+                compteur_minute += tabdateArrive[compteur_arrivee];
+                compteur_arrivee +=1;
+
+            }else{
+            //ie l evenement est une sortie de client
+
+                tab_taille_file[j+1] =tab_taille_file[j] -1; 
+                
+                temps_effectif_file[j] = tabdateFinService[compteur_fin_service] - compteur_minute;        
+
+                compteur_minute += tabdateFinService[compteur_fin_service];
+                compteur_fin_service +=1;
+            }
+
+        }else
+        //ie if la liste des arrivees a ete parcourue en entier -> que des sorties now
+        //par construction du code tabdateArrive est percourue entierement avant tabdateFinService
+
+            tab_taille_file[j+1] =tab_taille_file[j] -1; 
+                
+                temps_effectif_file[j] = tabdateFinService[compteur_fin_service] - compteur_minute;        
+
+                compteur_minute += tabdateFinService[compteur_fin_service];
+                compteur_fin_service +=1;
+            }
+        }
+    }
     
-    taillemaxfile =
+    
+    //calcule de taillemoyfileattente et taillemaxfile:
+
+    taillemaxfile = 0;
+    taillemoyfileattente = 0; //baricentre des tailles de files pondere par leurs temps effectifs
+
+    for(int j=0; j<2*i; j++){
+
+        taillemoyfileattente += tab_taille_file[j]*temps_effectif_file[j]
+        if(taillemaxfile < tab_taille_file[j])
+            taillemaxfile = tab_taille_file;
+
+    }
+    taillemoyfileattente /= compteur_minute; //divise par le temps d ouverture total
+    
+    //----------------------------------------------
 
     debitmoyen = i/510;
 
-/*definition d'un client non servi:
-deuxieme client dont la date de fin de service excede 540
-*/
+    /*definition d'un client non servi:
+    deuxieme client dont la date de fin de service excede 540*/
     int j =0;
     while( tabdateFinService[j] > 540)
         j++;
