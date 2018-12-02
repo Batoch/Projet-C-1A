@@ -1,9 +1,5 @@
-code: enregistrement.o code.o lecture.o miseenpage.o
-	gcc enregistrement.o code.o lecture.o miseenpage.o -o code -lm
-
-
-enregistrement.o: enregistrement.h enregistrement.c
-	gcc -c enregistrement.c
+code: code.o lecture.o miseenpage.o
+	gcc code.o lecture.o miseenpage.o -o code -lm
 
 code.o: code.c enregistrement.h
 	gcc -c code.c -lm
