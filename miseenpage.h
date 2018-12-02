@@ -1,1 +1,1 @@
-void tableaudebord(float metriques);
+void tableaudebord(Metriques metriques);
