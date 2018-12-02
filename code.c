@@ -66,6 +66,7 @@ int main(){
 	enregistreListeJournaliere(&ma_liste);
 	printf("done.\n");
 	Metriques metriques =  enregilecturestrer();
+	tableaudebord( metriques);
 
 	return 0;
 }
