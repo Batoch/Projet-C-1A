@@ -18,7 +18,6 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
     int dureAttente;
     int dateDebutService;
     int dateFinService;
-printf("0");
 
 	fic = fopen("fichier.txt", "r");
 
@@ -27,8 +26,7 @@ printf("0");
         fseek(fic, +1, SEEK_CUR);
         i++;
     }
-printf("1");
-    fseek(fic, 0, SEEK_CUR);
+ //   fseek(fic, 0, SEEK_CUR);
 
     int tabdateArrive[i];
     int tabdureAttente[i];
