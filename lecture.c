@@ -128,7 +128,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
 
         taillemoyfileattente += (float) (tab_taille_file[j]*temps_effectif_file[j]);
         if(taillemaxfile < tab_taille_file[j])
-            taillemaxfile = tab_taille_file;
+            taillemaxfile = tab_taille_file[j];
 
     }
     taillemoyfileattente /= (float) compteur_minute; //divise par le temps d ouverture total
