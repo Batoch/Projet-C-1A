@@ -7,5 +7,5 @@ code.o: code.c lecture.h miseenpage.h
 lecture.o: lecture.c lecture.h
 	gcc -c lecture.c
 
-miseenpage.o: miseenpage.c miseenpage.h
+miseenpage.o: miseenpage.c miseenpage.h lecture.h
 	gcc -c miseenpage.c
