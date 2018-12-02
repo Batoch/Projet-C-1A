@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef {float {taillemoyfileattente;
+int taillemaxfile;
+float debitmoyen;
+ float tauxclientnonservis;
+ float tempsreponsemoy;    } Metriques;
 
-float enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et retourne les metriques 
+Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et retourne les metriques 
 	FILE *fic;
     float taillemoyfileattente;
     int taillemaxfile;
@@ -155,6 +160,6 @@ float enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" e
 
 	fclose(fic);
 
-    float metriques[5] = {taillemoyfileattente,taillemaxfile,debitmoyen, tauxclientnonservis, tempsreponsemoy};
+    Metriques metriques= {taillemoyfileattente,taillemaxfile,debitmoyen, tauxclientnonservis, tempsreponsemoy};
     return(metriques);
 }
