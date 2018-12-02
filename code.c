@@ -65,7 +65,7 @@ int main(){
 	affichage(&ma_liste);
 	enregistreListeJournaliere(&ma_liste);
 	printf("done.\n");
-	float metriques[5] =  enregilecturestrer();
+	Metriques metriques =  enregilecturestrer();
 
 	return 0;
 }
