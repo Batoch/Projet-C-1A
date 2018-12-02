@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void enregilecturestrer(){
+void enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et retourne les metriques 
 	FILE *fic;
     float taillemoyfileattente;
     int taillemaxfile;
