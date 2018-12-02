@@ -39,7 +39,7 @@ void tableaudebord(Metriques metriques);
 
 int main(){
 	int temps = 0;
-	double lambda = 0.1;
+	double lambda = 0.01;
 	int min = 5; int max =20;
 
 	srand(time(NULL)); // initialisation de rand pour avoir des valeur alatoire
@@ -114,7 +114,7 @@ void affichage(ListeClient* pMa_liste){
 	Client *ptr_courant = pMa_liste->pTete;
 	
 	while(ptr_courant != NULL){
-		//printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);
+		printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);
 		ptr_courant = ptr_courant->suivant;	
 	}
 }
@@ -135,7 +135,7 @@ void calcule(int min, int max, ListeClient* pMa_liste){
 	ptr_courant = ptr_courant->suivant;
 	
 	//parcours de la liste:
-	while(ptr_courant->suivant != NULL){ 
+	while(ptr_courant != NULL){ 
 	//execute le bloc et le repete si la condition est vrai
 
 		ptr_courant->duree_attente = ptr_precedent->date_fin - ptr_courant->date_arrivee;
@@ -149,9 +149,6 @@ void calcule(int min, int max, ListeClient* pMa_liste){
 		ptr_courant = ptr_courant->suivant;
 	}
 
-	//pour tester le dernier element:
-	ptr_courant->duree_attente = ptr_precedent->date_fin - ptr_courant->date_arrivee;
-	ptr_courant->date_fin = ptr_precedent->date_fin + aleatoire(min, max);
 }
 
 
