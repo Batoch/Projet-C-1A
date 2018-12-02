@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "lecture.h"
 
 
 
@@ -7,14 +8,15 @@
 
 
 
-
-void tableaudebord(float metriques){              //metriques est un tableau de taille 5
+void tableaudebord(Metriques metriques){              //metriques est un tableau de taille 5
 	FILE *fic;
-    float taillemoyfileattente = metriques[0];
-    int taillemaxfile = metriques[1];
-    float debitmoyen = metriques[2];
-    int tauxclientnonservis = metriques[3];
-    float tempsreponsemoy = metriques[4];
+    float taillemoyfileattente = metriques.taillemoyfileattente;
+    int taillemaxfile = metriques.taillemaxfile;
+    float debitmoyen = metriques.debitmoyen;
+    int tauxclientnonservis = metriques.tauxclientnonservis;
+    float tempsreponsemoy = metriques.tempsreponsemoy;
+
+    
 
 
 	fic = fopen("tableaudebord.txt", "w");
