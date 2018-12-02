@@ -3,7 +3,6 @@
 #include <math.h>					//biblio mathematique ajouter -lm a la compilation
 #include <time.h>
 #include <stdbool.h>
-#include "enregistrement.h"
 
 /*utilisation de gdb pour debbuger:
 compiler avec l'option -g: gcc -g code.c -lm
@@ -16,6 +15,10 @@ nouvelle session: screen -S nom_delasession
 se rattacher a une session: screen -r ...
 se detacher " : screen -d
 liste des session: screen ls
+*/
+
+/*
+sudo su pour etre en root
 */
 
 //intervalle d ouveture en temps: 8h30 a 17h30 -> 540min
@@ -116,11 +119,10 @@ void affichage(ListeClient* pMa_liste){
 
 	Client *ptr_courant = pMa_liste->pTete;
 	
-	while(ptr_courant->suivant != NULL){
+	while(ptr_courant != NULL){
 		printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);
 		ptr_courant = ptr_courant->suivant;	
 	}
-	printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);	
 }
 
 
