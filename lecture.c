@@ -23,7 +23,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
 
     while(fic != NULL)          //calcul du nombre de clients dans le fichier
     {
-        fseek(fic, +1, SEEK_CUR);
+        //fseek(fic, +1, SEEK_CUR);
         i++;
     }
  //   fseek(fic, 0, SEEK_CUR);
@@ -38,7 +38,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
     while(fic != NULL)
     {
         fscanf(fic, "%d,%d,%d,%d", &dateArrive, &dureAttente, &dateDebutService, &dateFinService);
-        fseek(fic, +1, SEEK_CUR);
+       // fseek(fic, +1, SEEK_CUR);
 
         tabdateArrive[i] = dateArrive;
         tabdureAttente[i] = dureAttente;
