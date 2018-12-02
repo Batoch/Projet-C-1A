@@ -4,8 +4,8 @@
 typedef struct {float taillemoyfileattente;
 int taillemaxfile;
 float debitmoyen;
- float tauxclientnonservis;
- float tempsreponsemoy;    } Metriques;
+float tauxclientnonservis;
+float tempsreponsemoy;    } Metriques;
 
 Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et retourne les metriques 
 	FILE *fic;
@@ -23,10 +23,11 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
 
     while(fic != NULL)          //calcul du nombre de clients dans le fichier
     {
-        //fseek(fic, +1, SEEK_CUR);
+        fseek(fic, +1, SEEK_CUR);
         i++;
     }
- //   fseek(fic, 0, SEEK_CUR);
+
+    fseek(fic, 1, SEEK_CUR);
 
     int tabdateArrive[i];
     int tabdureAttente[i];
@@ -38,7 +39,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
     while(fic != NULL)
     {
         fscanf(fic, "%d,%d,%d,%d", &dateArrive, &dureAttente, &dateDebutService, &dateFinService);
-       // fseek(fic, +1, SEEK_CUR);
+        fseek(fic, +1, SEEK_CUR);
 
         tabdateArrive[i] = dateArrive;
         tabdureAttente[i] = dureAttente;
