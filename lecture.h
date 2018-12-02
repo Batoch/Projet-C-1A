@@ -1,7 +1,7 @@
 void enregilecturestrer();
 
 
-typedef {float taillemoyfileattente;
+typedef struct {float taillemoyfileattente;
 int taillemaxfile;
 float debitmoyen;
  float tauxclientnonservis;
