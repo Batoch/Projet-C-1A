@@ -113,7 +113,7 @@ void affichage(ListeClient* pMa_liste){
 	Client *ptr_courant = pMa_liste->pTete;
 	
 	while(ptr_courant != NULL){
-		printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);
+		//printf("In %d\t: Wait %d\t: End %d\t|\n",ptr_courant->date_arrivee,ptr_courant->duree_attente,ptr_courant->date_fin);
 		ptr_courant = ptr_courant->suivant;	
 	}
 }
