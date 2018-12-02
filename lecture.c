@@ -1,14 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int min(int a, int b){
-    //donne le minimum entre deux entier
-    if(a<b | a=b)
-        return a;
-    return b;
-}
 
-void enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et retourne les metriques 
+float enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et retourne les metriques 
 	FILE *fic;
     float taillemoyfileattente;
     int taillemaxfile;
@@ -128,31 +122,32 @@ void enregilecturestrer(){          //lit le fichier de donnees "fichier.txt" et
 
     for(int j=0; j<2*i; j++){
 
-        taillemoyfileattente += tab_taille_file[j]*temps_effectif_file[j]
+        taillemoyfileattente += (float) (tab_taille_file[j]*temps_effectif_file[j]);
         if(taillemaxfile < tab_taille_file[j])
             taillemaxfile = tab_taille_file;
 
     }
-    taillemoyfileattente /= compteur_minute; //divise par le temps d ouverture total
+    taillemoyfileattente /= (float) compteur_minute; //divise par le temps d ouverture total
     
     //----------------------------------------------
 
-    debitmoyen = i/510;
+    debitmoyen = ((float) i)/510;
 
+    float nbClientsServis;
     /*definition d'un client non servi:
     deuxieme client dont la date de fin de service excede 540*/
     int j =0;
     while( tabdateFinService[j] > 540)
         j++;
     nbClientsServis = (i-(j+1));
-    tauxclientnonservis = nbClientsServis/i;
+    tauxclientnonservis = nbClientsServis/((float) i);
 
 
     int somme = 0;
     for(int j=0; j<i; j++){
         somme += tabdateArrive[j] - tabdateFinService[j];
     }
-    tempsreponsemoy = somme/i;
+    tempsreponsemoy =((float) somme) /((float)) i);
 
 
 
