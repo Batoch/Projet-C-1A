@@ -4,7 +4,7 @@ code: code.o lecture.o miseenpage.o
 code.o: code.c enregistrement.h
 	gcc -c code.c -lm
 
-lecture.o: lecture.c
+lecture.o: lecture.c lecture.h
 	gcc -c lecture.c
 
 miseenpage.o: miseenpage.c miseenpage.h
