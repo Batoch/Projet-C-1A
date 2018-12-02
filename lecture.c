@@ -26,7 +26,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
         fseek(fic, +1, SEEK_CUR);
         i++;
     }
-
+printf("1");
     fseek(fic, 0, SEEK_CUR);
 
     int tabdateArrive[i];
