@@ -3,6 +3,8 @@
 #include <math.h>					//biblio mathematique ajouter -lm a la compilation
 #include <time.h>
 #include <stdbool.h>
+#include "miseenpage.h"
+#include "lecture.h"
 
 /*utilisation de gdb pour debbuger:
 compiler avec l'option -g: gcc -g code.c -lm
@@ -20,7 +22,7 @@ typedef struct _Client {int date_arrivee;
 
 typedef struct {Client* pTete;} ListeClient;
 
-/* justifictation: 
+/* JUSTIFICATION: 
 On utilise une liste chainee afin de pouvoir ajouter des clients sans limite de taille
 */
 
@@ -151,7 +153,10 @@ void calcule(int min, int max, ListeClient* pMa_liste){
 
 
 void enregistreListeJournaliere(ListeClient* pMa_liste){
-
+	//Conventions d enregistrement:
+	//Les dates sont exprimes en minutes ecoulees depuis 8h30
+	//pour chaque client, on enregistre sur une ligne les variables suivantes separes d une virgule:
+	// date d arrivee, duree d attente, date de debut de service, date de fin de service
 	Client *ptr_courant = pMa_liste->pTete;
 	int date_debut_service;
 
