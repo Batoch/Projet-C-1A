@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef {float {taillemoyfileattente;
+typedef {float taillemoyfileattente;
 int taillemaxfile;
 float debitmoyen;
  float tauxclientnonservis;
