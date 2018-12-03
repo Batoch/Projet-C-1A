@@ -76,6 +76,16 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
     int compteur_minute;
     int compteur_arrivee = 0;
     int compteur_fin_service = 0;
+
+    int somme = 0;
+    for(int j=0; j<i; j++){
+        somme += tabdateFinService[j] - tabdateArrive[j];
+    }
+    
+    tempsreponsemoy =((float) somme) /((float) i);
+
+
+
     for(int j=0; j<2*i; j++){
 
         //on distigue different cas suivant qu une liste est vide ou non:
@@ -92,7 +102,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
                 //deduction du temps effectifs de la file a l etat precedent
                 
                 //maj des compteurs:
-                compteur_minute += tabdateArrive[compteur_arrivee];
+                compteur_minute = tabdateArrive[compteur_arrivee];
                 compteur_arrivee +=1;
 
             }else{
@@ -102,7 +112,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
                 
                 temps_effectif_file[j] = tabdateFinService[compteur_fin_service] - compteur_minute;        
 
-                compteur_minute += tabdateFinService[compteur_fin_service];
+                compteur_minute = tabdateFinService[compteur_fin_service];
                 compteur_fin_service +=1;
             }
 
@@ -114,7 +124,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
                 
                 temps_effectif_file[j] = tabdateFinService[compteur_fin_service] - compteur_minute;        
 
-                compteur_minute += tabdateFinService[compteur_fin_service];
+                compteur_minute = tabdateFinService[compteur_fin_service];
                 compteur_fin_service +=1;
             
         }
@@ -149,11 +159,7 @@ Metriques enregilecturestrer(){          //lit le fichier de donnees "fichier.tx
     tauxclientnonservis = nbClientsServis/((float) i);
 
 
-    int somme = 0;
-    for(int j=0; j<i; j++){
-        somme += tabdateArrive[j] - tabdateFinService[j];
-    }
-    tempsreponsemoy =((float) somme) /((float) i);
+
 
 
 

@@ -39,7 +39,7 @@ void tableaudebord(Metriques metriques);
 
 int main(){
 	int temps = 0;
-	double lambda = 0.01;
+	double lambda = 0.05;
 	int min = 5; int max =20;
 
 	srand(time(NULL)); // initialisation de rand pour avoir des valeur alatoire
@@ -142,7 +142,11 @@ void calcule(int min, int max, ListeClient* pMa_liste){
 		if(ptr_courant->duree_attente<0)
 			ptr_courant->duree_attente = 0;
 				
-		ptr_courant->date_fin = ptr_precedent->date_fin + aleatoire(min, max);
+		if(ptr_precedent->date_fin >= ptr_courant->date_arrivee)
+		   ptr_courant->date_fin = ptr_precedent->date_fin + aleatoire(min, max);
+        else
+		   ptr_courant->date_fin = ptr_courant->date_arrivee + aleatoire(min, max);
+           
 
 		//passage au maillot suivant:
 		ptr_precedent = ptr_courant;
